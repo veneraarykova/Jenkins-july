@@ -17,25 +17,20 @@ spec:
 
 def buildNumber = env.BUILD_NUMBER
 
-properties([
-    parameters([
-        choice(choices: ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2'], description: 'Pick the region', name: 'region')
-        ])
-        ])
 
-if (params.region === "us-east-1"){
+if (env.BRANCH_NAME === "main"){
     kaizen = "us-east-1"
 }
-else if (params.region === "us-east-2"){
+else if (env.BRANCH_NAME === "dev"){
     kaizen = "us-east-2"
 }
 
-else if (params.region === "us-west-1"){
+else if (env.BRANCH_NAME === "qa"){
     kaizen = "us-west-1"
 }
 
-else (params.region === "us-west-2"){
-    kaizen = "us-west-2"
+else {
+    error "Branch doesn`t supported"
 }
 
 podTemplate(cloud: 'kubernetes', label: 'packer', showRawYaml: false, yaml: template){
