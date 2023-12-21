@@ -19,14 +19,20 @@ def buildNumber = env.BUILD_NUMBER
 
 if (env.BRANCH_NAME == "main") {
     kaizen = "us-east-1"
+    type = "t2.micro"
+    key = "my laptop key"
 }
 
 else if (env.BRANCH_NAME == "dev") {
     kaizen = "us-east-2"
+     type = "t3.micro"
+    key = "my laptop key"
 }
 
 else if (env.BRANCH_NAME == "qa") {
     kaizen = "us-west-1"
+     type = "t2.small"
+    key = "my laptop key"
 }
 
 else {
@@ -50,6 +56,15 @@ stage("Packer"){
   packer init .
   packer build -var 'jenkins_build_number=${buildNumber}' packer.pkr.hcl
   """
+
+  build job: 'hello-world', 
+  parameters: [
+    string(name: 'action', value: 'apply'), 
+    string(name: 'region', value: "${kaizen}"), 
+    string(name: 'ami_name', value: "my-ami-${buildNumber}"), 
+    string(name: 'type', value: "${type}"), 
+    string(name: 'az', value: "${kaizen}b "), 
+    string(name: 'key', value: "${key }")]
 }
 }
 }
