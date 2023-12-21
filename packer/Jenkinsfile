@@ -14,22 +14,24 @@ spec:
     name: packer
     '''
 
- def buildNumber = env.BUILD_NUMBER
+def buildNumber = env.BUILD_NUMBER
 
 
-        if (env.BRANCH_NAME == "main") {
-            kaizen = "us-east-1"
-        }
-         else if (env.BRANCH_NAME == "dev") {
-            kaizen = "us-east-2"
-        }
-         
-         else if (env.BRANCH_NAME == "qa") {
-            kaizen = "us-west-1"
-        }
-        else  {
-           error "Branch doesnt supported"
-        }
+if (env.BRANCH_NAME == "main") {
+    kaizen = "us-east-1"
+}
+
+else if (env.BRANCH_NAME == "dev") {
+    kaizen = "us-east-2"
+}
+
+else if (env.BRANCH_NAME == "qa") {
+    kaizen = "us-west-1"
+}
+
+else {
+    error "Branch doesn't not supported"
+}
 
 podTemplate(cloud: 'kubernetes', label: 'packer', showRawYaml: false, yaml: template){
 node("packer"){
