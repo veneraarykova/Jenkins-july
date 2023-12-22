@@ -44,7 +44,7 @@ node("packer"){
 container("packer"){
 
 stage ("Checkout SCM") {
-    git branch: 'main', url: 'https://github.com/kaizenacademy/jenkins-july.git'
+    git branch: 'main', url: 'https://github.com/veneraarykova/jenkins-july.git'
 }
 
 withCredentials([usernamePassword(credentialsId: 'aws-creds', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
