@@ -64,7 +64,7 @@ stage("Packer"){
     string(name: 'ami_id', value: "my-ami-${buildNumber}"), 
     string(name: 'type', value: "${type}"), 
     string(name: 'az', value: "${kaizen}b "), 
-    string(name: 'key', value: "${key }")]
+    string(name: 'key', value: "${key}")]
 }
 }
 }
