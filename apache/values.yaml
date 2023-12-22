@@ -1,0 +1,11 @@
+podname: hello-world
+
+repository:
+  image: "arykovavenera/apache"
+  tag: "1.0.0"
+
+service:
+  name: hello-world
+  port: 80
+  targetport: 80
+  type: LoadBalancer
